@@ -58,13 +58,14 @@ automation:
 
   - id: amber_daily_monthly_total_cost 
     alias: 'Amber: Daily Monthly Total Cost'
-    description: "Calculates Amber Daily and Monthly cost including Daily fees"
+    description: "Calculates Amber daily and monthly cost including daily fees"
     trigger:
       - platform: time_pattern
-        minutes: "31"
-        id: "1"
+        minutes: '29'
+        seconds: '58'
       - platform: time_pattern
-        minutes: "01"
+        mminutes: '59'
+        seconds: '58'
         id: "2"
       - platform: time
         at: "00:00:05"
@@ -194,7 +195,7 @@ input_number:
     step: 0.001
     mode: box
 
-  # Export profit at the end of the 30 minute period
+  # Net profit or cost at the end of the 30 minute period
   amber_net_profit_loss_30_minutes:
     name: 'Amber: Net Profit Loss (30 Minutes)'
     unit_of_measurement: $
@@ -205,7 +206,10 @@ input_number:
     step: 0.001
     mode: box
 
-  # Export profit at the end of the 30 minute period
+  # Net profit or cost for the current day updated each 30 mins
+  # Automations will 
+  # - add the daily network and amber charges as well
+  # - reset to 0 at the start of each day
   amber_net_profit_loss_daily:
     name: 'Amber: Net Profit Loss (daily)'
     unit_of_measurement: $
@@ -216,7 +220,11 @@ input_number:
     step: 0.001
     mode: box
 
-  # Export profit at the end of the 30 minute period
+  # Net profit or cost for the current month updated each 30 mins
+  # Automations will 
+  # - add the daily network and amber charges as well
+  # - reset to 0 on the first of each calender month
+  
   amber_net_profit_loss_monthly:
     name: 'Amber: Net Profit Loss (Monthly)'
     unit_of_measurement: $
@@ -227,7 +235,7 @@ input_number:
     step: 0.001
     mode: box
 
-
+  # Daily Energy provider fixed fee charges
   amber_daily_network_charge:
     name: 'Amber: Daily Network Provider Charge'
     unit_of_measurement: $
@@ -238,6 +246,7 @@ input_number:
     step: 0.00001
     mode: box
 
+  # Daily Amber Membership fee 
   amber_daily_membership_charge:
     #$15 per month * 12 / 365 = $0.49315 per day
     #$19 per month * 12 / 365 = $0.624657 per day
