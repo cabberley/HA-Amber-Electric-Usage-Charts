@@ -1,5 +1,3 @@
-# After the sensors in amber_usage.yaml are confirmed to be working correctly,
-# append the following content to amber_usage.yaml.
 
 ### Automations ###
 automation:
@@ -46,6 +44,107 @@ automation:
           {{ energy * price | float }}
       target:
         entity_id: input_number.amber_export_profit_30_minutes
+    - service: input_number.set_value
+      data:
+        value: >
+          {% set energyexport = states('sensor.inverter_export_energy_30_minutes')|float(0) %} 
+          {% set priceexport = states('sensor.your_amber_feed_in_price')|float(0) %} 
+          {% set energyimport = states('sensor.inverter_import_energy_30_minutes')|float(0) %} 
+          {% set priceimport = states('sensor.your_amber_general_price')|float(0) %} 
+          {{ (energyimport * priceimport) - (energyexport * priceexport) | float }}
+      target:
+        entity_id: input_number.amber_net_profit_loss_30_minutes
+    mode: single
+
+  - id: amber_daily_monthly_total_cost 
+    alias: 'Amber: Daily Monthly Total Cost'
+    description: "Calculates Amber Daily and Monthly cost including Daily fees"
+    trigger:
+      - platform: time_pattern
+        minutes: "31"
+        id: "1"
+      - platform: time_pattern
+        minutes: "01"
+        id: "2"
+      - platform: time
+        at: "00:00:05"
+        id: "3"
+    condition: []
+    action:
+      - if:
+          - condition: trigger
+            id:
+              - "3"
+          - condition: template
+            value_template: "{{ now().day == 1 }}"
+        then:
+          - service: input_number.set_value
+            data:
+              value: >
+                {% set network =
+                states('input_number.amber_daily_network_charge')|float(0) %}  {%
+                set amber =
+                states('input_number.amber_daily_membership_charge')|float(0) %} 
+                {{network + amber | float }}
+            target:
+              entity_id: input_number.amber_net_profit_loss_monthly
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - "3"
+            sequence:
+              - service: input_number.set_value
+                data:
+                  value: >
+                    {% set network =
+                    states('input_number.amber_daily_network_charge')|float(0) %} 
+                    {% set amber =
+                    states('input_number.amber_daily_membership_charge')|float(0)
+                    %}  {{network + amber | float }}
+                target:
+                  entity_id: input_number.amber_net_profit_loss_daily
+          - conditions:
+              - condition: trigger
+                id:
+                  - "1"
+                  - "2"
+            sequence:
+              - service: input_number.set_value
+                data:
+                  value: >
+                    {% set lastdaily =
+                    states('input_number.amber_net_profit_loss_daily')|float(0) %} 
+                    {% set energyexport =
+                    states('sensor.inverter_export_energy_30_minutes')|float(0) %} 
+                    {% set priceexport =
+                    states('sensor.your_amber_feed_in_price')|float(0) %}  {% set
+                    energyimport =
+                    states('sensor.inverter_import_energy_30_minutes')|float(0) %} 
+                    {% set priceimport =
+                    states('sensor.your_amber_general_price')|float(0) %}  {{ lastdaily
+                    + (energyimport * priceimport) - (energyexport * priceexport) |
+                    float }}
+                target:
+                  entity_id:
+                    - input_number.amber_net_profit_loss_daily
+                    - input_number.amber_net_profit_loss_monthly
+    mode: single
+  - id: amber_update_monthly_fee_30th_september
+    alias: 'Amber: Update Monthly Fee 30th September'
+    description: ""
+    trigger:
+      - platform: time
+        at: "23:56:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().day == 30 and now().month == 9 and now().year == 2023}}"
+    action:
+      - service: input_number.set_value
+        data:
+          value: 0.62465
+        target:
+          entity_id: input_number.amber_daily_membership_charge
     mode: single
 
 ### Input Numbers ###
@@ -93,6 +192,62 @@ input_number:
     min: -10000
     max: 10000
     step: 0.001
+    mode: box
+
+  # Export profit at the end of the 30 minute period
+  amber_net_profit_loss_30_minutes:
+    name: 'Amber: Net Profit Loss (30 Minutes)'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.001
+    mode: box
+
+  # Export profit at the end of the 30 minute period
+  amber_net_profit_loss_daily:
+    name: 'Amber: Net Profit Loss (daily)'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.001
+    mode: box
+
+  # Export profit at the end of the 30 minute period
+  amber_net_profit_loss_monthly:
+    name: 'Amber: Net Profit Loss (Monthly)'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.001
+    mode: box
+
+
+  amber_daily_network_charge:
+    name: 'Amber: Daily Network Provider Charge'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 1.0602
+    min: -10000
+    max: 10000
+    step: 0.00001
+    mode: box
+
+  amber_daily_membership_charge:
+    #$15 per month * 12 / 365 = $0.49315 per day
+    #$19 per month * 12 / 365 = $0.624657 per day
+    name: 'Amber: Daily Membership Charge'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 0.49315
+    min: -10000
+    max: 10000
+    step: 0.00001
     mode: box
 
 
