@@ -37,12 +37,12 @@ cards:
     all_series_config:
       yaxis_id: left
       type: column
-      group_by:
-        func: max
-        duration: 1d
       extend_to: false
       float_precision: 1
       stroke_width: 1
+      group_by:
+        func: max
+        duration: 1d
       show:
         legend_value: false
         datalabels: true
@@ -51,10 +51,12 @@ cards:
       - entity: sensor.inverter_import_energy_daily
         name: General Usage
         color: '#1086FF'
+        stack_group: energy
       - entity: sensor.inverter_export_energy_daily
         name: Solar Exports
         invert: true
         color: '#FFC624'
+        stack_group: energy
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
@@ -94,7 +96,7 @@ cards:
       yaxis_id: left
       type: column
       group_by:
-        func: sum
+        func: max
         duration: 1d
       extend_to: false
       float_precision: 2
@@ -104,13 +106,15 @@ cards:
         datalabels: true
     stacked: true
     series:
-      - entity: input_number.amber_import_cost_30_minutes
+      - entity: sensor.amber_import_cost_daily
         name: General Usage
         color: '#1086FF'
-      - entity: input_number.amber_export_profit_30_minutes
+        stack_group: energy
+      - entity: sensor.amber_export_profit_daily
         name: Solar Exports
         invert: true
         color: '#FFC624'
+        stack_group: energy
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
@@ -153,10 +157,12 @@ cards:
       - entity: sensor.inverter_import_energy_30_minutes
         name: General Usage
         color: '#1086FF'
+        stack_group: energy
       - entity: sensor.inverter_export_energy_30_minutes
         name: Solar Exports
         invert: true
         color: '#FFC624'
+        stack_group: energy
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
@@ -200,10 +206,12 @@ cards:
       - entity: input_number.amber_import_cost_30_minutes
         name: General Usage
         color: '#1086FF'
+        stack_group: energy
       - entity: input_number.amber_export_profit_30_minutes
         name: Solar Exports
         invert: true
         color: '#FFC624'
+        stack_group: energy
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
@@ -253,7 +261,7 @@ cards:
     all_series_config:
       group_by:
         fill: zero
-        func: sum
+        func: max
         duration: 1d
       extend_to: false
       show:
@@ -267,9 +275,7 @@ cards:
         color: firebrick
         float_precision: 1
         stroke_width: 1
-        group_by:
-          func: max
-      - entity: input_number.amber_import_cost_30_minutes
+      - entity: sensor.amber_import_cost_daily
         name: Bought
         type: line
         yaxis_id: right
@@ -279,7 +285,7 @@ cards:
         stroke_width: 2
         show:
           datalabels: true
-      - entity: input_number.amber_export_profit_30_minutes
+      - entity: sensor.amber_export_profit_daily
         name: Sold
         type: line
         yaxis_id: right
@@ -296,8 +302,6 @@ cards:
         color: forestgreen
         float_precision: 1
         stroke_width: 1
-        group_by:
-          func: max
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
