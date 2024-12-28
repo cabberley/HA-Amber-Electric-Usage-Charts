@@ -1,0 +1,180 @@
+### Utility Meters ###
+utility_meter:
+
+  # Cumulative energy import & export partitioned by different time durations.
+  # Cumulative cost and profit partitioned by selected time durations.
+  
+  # Five Minutes
+  amber_5min_inverter_import_energy_5_minutes:  
+    unique_id: amber_5min_inverter_import_energy_5_minutes
+    name: 'Amber: 5min Inverter Import Energy (5 Minutes)'
+    source: sensor.amber_5min_inverter_import_energy_total
+    cron: "*/5 * * * *"
+
+  amber_5min_inverter_export_energy_5_minutes:
+    unique_id: amber_5min_inverter_export_energy_5_minutes
+    name: 'Amber: 5min Inverter Export Energy (5 Minutes)'
+    source: sensor.amber_5min_inverter_export_energy_total
+    cron: "*/5 * * * *"
+
+  amber_5min_import_cost_5_minutes:
+    unique_id: amber_5min_import_cost_5_minutes
+    name: 'Amber: 5min Import Cost (5 Minutes)'
+    source: input_number.amber_5min_import_cost_5_minutes
+    delta_values: true
+    net_consumption: true
+    cron: "*/5 * * * *"
+
+  amber_5min_export_profit_5_minutes: 
+    unique_id: amber_5min_export_profit_5_minutes
+    name: 'Amber: 5min Export Profit (5 Minutes)'
+    source: input_number.amber_5min_export_profit_5_minutes
+    delta_values: true
+    net_consumption: true
+    cron: "*/5 * * * *"
+
+  # Thirty Minutes
+  amber_5min_inverter_import_energy_30_minutes:  
+    unique_id: amber_5min_inverter_import_energy_30_minutes
+    name: 'Amber: 5min Inverter Import Energy (30 Minutes)'
+    source: sensor.amber_5min_inverter_import_energy_total
+    cron: "*/30 * * * *"
+
+  amber_5min_inverter_export_energy_30_minutes:
+    unique_id: amber_5min_inverter_export_energy_30_minutes
+    name: 'Amber: 5min Inverter Export Energy (30 Minutes)'
+    source: sensor.amber_5min_inverter_export_energy_total
+    cron: "*/30 * * * *"
+
+  amber_5min_import_cost_30_minutes:
+    unique_id: amber_5min_import_cost_30_minutes
+    name: 'Amber: 5min Import Cost (30 Minutes)'
+    source: input_number.amber_5min_import_cost_30_minutes
+    delta_values: true
+    net_consumption: true
+    cron: "*/30 * * * *"
+
+  amber_5min_export_profit_30_minutes: 
+    unique_id: amber_5min_export_profit_30_minutes
+    name: 'Amber: 5min Export Profit (30 Minutes)'
+    source: input_number.amber_5min_export_profit_30_minutes
+    delta_values: true
+    net_consumption: true
+    cron: "*/30 * * * *"
+
+  # Hourly
+  amber_5min_inverter_import_energy_hourly:  
+    unique_id: amber_5min_inverter_import_energy_hourly
+    name: 'Amber: 5min Inverter Import Energy (Hourly)'
+    source: sensor.amber_5min_inverter_import_energy_total
+    cycle: hourly
+
+  amber_5min_inverter_export_energy_hourly:
+    unique_id: amber_5min_inverter_export_energy_hourly
+    name: 'Amber: 5min Inverter Export Energy (Hourly)'
+    source: sensor.amber_5min_inverter_export_energy_total
+    cycle: hourly
+
+  amber_5min_import_cost_hourly:  
+    unique_id: amber_5min_import_cost_hourly
+    name: 'Amber: 5min Import Cost (Hourly)'
+    source: input_number.amber_5min_import_cost_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: hourly
+
+  amber_5min_export_profit_hourly:  
+    unique_id: amber_5min_export_profit_hourly
+    name: 'Amber: 5min Export Profit (Hourly)'
+    source: input_number.amber_5min_export_profit_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: hourly
+
+  # Daily
+  amber_5min_inverter_import_energy_daily:  
+    unique_id: amber_5min_inverter_import_energy_daily
+    name: 'Amber: 5min Inverter Import Energy (Daily)'
+    source: sensor.amber_5min_inverter_import_energy_total
+    cycle: daily
+
+  amber_5min_inverter_export_energy_daily:
+    unique_id: amber_5min_inverter_export_energy_daily
+    name: 'Amber: 5min Inverter Export Energy (Daily)'
+    source: sensor.amber_5min_inverter_export_energy_total
+    cycle: daily
+
+  amber_5min_import_cost_daily:  
+    unique_id: amber_5min_import_cost_daily
+    name: 'Amber: 5min Import Cost (Daily)'
+    source: input_number.amber_5min_import_cost_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: daily
+
+  amber_5min_export_profit_daily:  
+    unique_id: amber_5min_export_profit_daily
+    name: 'Amber: 5min Export Profit (Daily)'
+    source: input_number.amber_5min_export_profit_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: daily
+
+  # Monthly
+  amber_5min_inverter_import_energy_monthly:  
+    unique_id: amber_5min_inverter_import_energy_monthly
+    name: 'Amber: 5min Inverter Import Energy (Monthly)'
+    source: sensor.amber_5min_inverter_import_energy_total
+    cycle: monthly
+
+  amber_5min_inverter_export_energy_monthly:
+    unique_id: amber_5min_inverter_export_energy_monthly
+    name: 'Amber: 5min Inverter Export Energy (Monthly)'
+    source: sensor.amber_5min_inverter_export_energy_total
+    cycle: monthly
+
+  amber_5min_import_cost_monthly:  
+    unique_id: amber_5min_import_cost_monthly
+    name: 'Amber: 5min Import Cost (Monthly)'
+    source: input_number.amber_5min_import_cost_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: monthly
+
+  amber_5min_export_profit_monthly:  
+    unique_id: amber_5min_export_profit_monthly
+    name: 'Amber: 5min Export Profit (Monthly)'
+    source: input_number.amber_5min_export_profit_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: monthly
+
+  # Yearly
+  amber_5min_inverter_import_energy_yearly:  
+    unique_id: amber_5min_inverter_import_energy_yearly
+    name: 'Amber: 5min Inverter Import Energy (Yearly)'
+    source: sensor.amber_5min_inverter_import_energy_total
+    cycle: yearly
+
+  amber_5min_inverter_export_energy_yearly:
+    unique_id: amber_5min_inverter_export_energy_yearly
+    name: 'Amber: 5min Inverter Export Energy (Yearly)'
+    source: sensor.amber_5min_inverter_export_energy_total
+    cycle: yearly
+    
+  amber_5min_import_cost_yearly:  
+    unique_id: amber_5min_import_cost_yearly
+    name: 'Amber: 5min Import Cost (Yearly)'
+    source: input_number.amber_5min_import_cost_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: yearly
+    
+  amber_5min_export_profit_yearly:  
+    unique_id: amber_5min_export_profit_yearly
+    name: 'Amber: 5min Export Profit (Yearly)'
+    source: input_number.amber_5min_export_profit_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: yearly
+
