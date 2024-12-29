@@ -32,7 +32,15 @@ utility_meter:
     delta_values: true
     net_consumption: true
     cron: "*/5 * * * *"
-
+    
+  amber_5min_net_cost_profit_5_minutes:
+    unique_id: amber_5min_net_cost_profit_5_minutes
+    name: 'Amber: 5min Net Cost/Profit (5 Minutes)'
+    source: input_number.amber_5min_export_profit
+    delta_values: true
+    net_consumption: true
+    cron: "*/5 * * * *"
+  
   # Thirty Minutes
   amber_5min_inverter_import_energy_30_minutes:  
     unique_id: amber_5min_inverter_import_energy_30_minutes
@@ -58,6 +66,14 @@ utility_meter:
     unique_id: amber_5min_export_profit_30_minutes
     name: 'Amber: 5min Export Profit (30 Minutes)'
     source: input_number.amber_5min_export_profit_30_minutes
+    delta_values: true
+    net_consumption: true
+    cron: "*/30 * * * *"
+
+  amber_5min_net_cost_profit_30_minutes:
+    unique_id: amber_5min_net_cost_profit_30_minutes
+    name: 'Amber: 5min Net Cost/Profit (30 Minutes)'
+    source: input_number.amber_5min_export_profit
     delta_values: true
     net_consumption: true
     cron: "*/30 * * * *"
@@ -91,6 +107,14 @@ utility_meter:
     net_consumption: true
     cycle: hourly
 
+  amber_5min_net_cost_profit_hourly:
+    unique_id: amber_5min_net_cost_profit_hourly
+    name: 'Amber: 5min Net Cost/Profit (Hourly)'
+    source: input_number.amber_5min_export_profit
+    delta_values: true
+    net_consumption: true
+    cycle: hourly
+
   # Daily
   amber_5min_inverter_import_energy_daily:  
     unique_id: amber_5min_inverter_import_energy_daily
@@ -116,6 +140,14 @@ utility_meter:
     unique_id: amber_5min_export_profit_daily
     name: 'Amber: 5min Export Profit (Daily)'
     source: input_number.amber_5min_export_profit_5_minutes
+    delta_values: true
+    net_consumption: true
+    cycle: daily
+
+  amber_5min_net_cost_profit_daily:
+    unique_id: amber_5min_net_cost_profit_daily
+    name: 'Amber: 5min Net Cost/Profit (daily)'
+    source: input_number.amber_5min_export_profit
     delta_values: true
     net_consumption: true
     cycle: daily
@@ -149,6 +181,14 @@ utility_meter:
     net_consumption: true
     cycle: monthly
 
+  amber_5min_net_cost_profit_monthly:
+    unique_id: amber_5min_net_cost_profit_monthly
+    name: 'Amber: 5min Net Cost/Profit (monthly)'
+    source: input_number.amber_5min_export_profit
+    delta_values: true
+    net_consumption: true
+    cycle: monthly
+
   # Yearly
   amber_5min_inverter_import_energy_yearly:  
     unique_id: amber_5min_inverter_import_energy_yearly
@@ -178,3 +218,10 @@ utility_meter:
     net_consumption: true
     cycle: yearly
 
+  amber_5min_net_cost_profit_yearly:
+    unique_id: amber_5min_net_cost_profit_yearly
+    name: 'Amber: 5min Net Cost/Profit (yearly)'
+    source: input_number.amber_5min_export_profit
+    delta_values: true
+    net_consumption: true
+    cycle: yearly
